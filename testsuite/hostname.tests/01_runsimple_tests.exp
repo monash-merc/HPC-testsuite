@@ -1,0 +1,3 @@
+source "/usr/local/scripts/tester/testprocs/runsimple.exp"
+#set verbose 1
+runsimple "01 Basic Hostname" hostname  "m2-login3"

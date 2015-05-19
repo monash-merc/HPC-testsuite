@@ -1,0 +1,6 @@
+source "/usr/local/scripts/tester/testprocs/runsimple.exp"
+set testdir "/usr/local/scripts/tester/testsuite/slurm.tests"
+# proc runsimple { test_name command_line passtext }
+# set verbose 1
+# Check that simple batch job is submitted ok
+runsimple "01 Check vis_manager reports projects" "/usr/local/desktop/vis_manager.py getprojects" "pmosp"

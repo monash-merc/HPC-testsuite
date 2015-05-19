@@ -1,0 +1,4 @@
+# something to keep runtest happy and not spit out warnings
+set verbose 1
+proc foo_exit {} {}
+proc foo_version {} {}

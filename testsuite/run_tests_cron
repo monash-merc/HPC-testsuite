@@ -1,0 +1,21 @@
+#!/bin/bash
+# runtest [options] [test]
+#  --tool toolname
+#      The naming of this option is confusing. It is the name of the group of tests being carried out. 
+#  --srcdir dir
+#      This specifies a path where directories of tests may be found. 
+#  --outdir dir
+#      This specifies a directory where all the output logs will be placed.
+# runtest --srcdir /usr/local/scripts/tester/testsuite --outdir ~/testresults |& egrep "# of unexpected failures|ERROR" 
+export PATH=/usr/local/slurm/latest/bin:$PATH
+MASSIVEDOC="Runs some functional tests from a user's perspective"
+SUBJECT="Functional Tests Fail"
+SDPURL="https://sites.google.com/a/monash.edu/massive-services/work-instructions/system-operation/system-monitoring#TOC-Functional-Testing"
+USERS=systems@massive.org.au
+RESULT=$((runtest --srcdir /usr/local/scripts/tester/testsuite --outdir ~/testresults) 2>&1)
+FAIL=`echo $RESULT | egrep "# of unexpected failures|ERROR"`
+SUBJECTFAIL=`echo $RESULT | grep -o "# of unexpected failures..."`
+if [[ -n "${FAIL}" ]]
+then 
+    echo -e "${MASSIVEDOC}\n\n$SDPURL\n\n${RESULT}\n" | mail -s "$SUBJECT: $SUBJECTFAIL" ${USERS}
+fi

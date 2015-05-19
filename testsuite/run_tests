@@ -1,0 +1,11 @@
+#!/bin/bash
+# runtest [options] [test]
+#  --tool toolname
+#      The naming of this option is confusing. It is the name of the group of tests being carried out. 
+#  --srcdir dir
+#      This specifies a path where directories of tests may be found. 
+#  --outdir dir
+#      This specifies a directory where all the output logs will be placed.
+# runtest --srcdir /usr/local/scripts/tester/testsuite --outdir ~/testresults |& egrep "# of unexpected failures|ERROR" 
+module load slurm
+runtest --srcdir /usr/local/scripts/tester/testsuite --outdir ~/testresults 
