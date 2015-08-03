@@ -12,11 +12,11 @@ MASSIVEDOC="Runs some functional tests from a user's perspective"
 SUBJECT="$HOSTNAME Functional Tests Fail"
 SDPURL="https://sites.google.com/a/monash.edu/massive-services/work-instructions/system-operation/system-monitoring#TOC-Functional-Testing"
 USERS=systems@massive.org.au
-RESULT=$((runuser -l tester -c 'runtest --srcdir /usr/local/scripts/tester/testsuite --outdir ~/testresults') 2>&1)
+RESULT=$((/sbin/runuser -l tester -c 'runtest --srcdir /usr/local/scripts/tester/testsuite --outdir ~/testresults') 2>&1)
 FAIL=$(echo $RESULT | egrep "# of unexpected failures|ERROR")
 SUBJECTFAIL=$(echo $RESULT | grep -o "# of unexpected failures...")
 
 if [[ -n "${FAIL}" ]]
 then 
-    echo -e "${MASSIVEDOC}\n\n$SDPURL\n\n${RESULT}\n" | mutt -s "$SUBJECT: $SUBJECTFAIL" ${USERS}
+    echo -e "${MASSIVEDOC}\n\n$SDPURL\n\n${RESULT}\n" | /usr/bin/mutt -s "$SUBJECT: $SUBJECTFAIL" ${USERS}
 fi
