@@ -1,3 +1,4 @@
+# derived from http://stackoverflow.com/questions/32899/how-to-generate-dynamic-parametrized-unit-tests-in-python
 import unittest
 import subprocess
 import os
@@ -30,12 +31,13 @@ if __name__ == '__main__':
                         dir = moduletokenlist[2] 
                         test = test_dir_exists(dir)
                         setattr(TestSequense, "test_" + module + "_prepend-path_PATH", test)
-                    # print moduleshowline
-                    # test_name = 'test_' + module 
-                    # test = test_dir_exists("/home")
-                    # setattr(TestSequense, test_name, test)
-        # print moduleshowlist        
-        # test_name = 'test_' + module
-        # test = test_generator("a","x")
-        # setattr(TestSequense, test_name, test)
+                    if moduletoken.startswith("LD_LIBRARY_PATH"):
+                        dir = moduletokenlist[2]
+                        test = test_dir_exists(dir)
+                        setattr(TestSequense, "test_" + module + "_prepend-path_LD_LIBRARY_PATH", test)
+                    if moduletoken.startswith("MANPATH"):
+                        dir = moduletokenlist[2]
+                        test = test_dir_exists(dir)
+                        setattr(TestSequense, "test_" + module + "_prepend-path_MANPATH", test)
+
     unittest.main()
